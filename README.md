@@ -1,8 +1,9 @@
 # CCTrip
 基于高德地图的出行个人练习项目
 
-技术栈: mysql+koa2.js+vue.js+echarts.js，基于高德地图服务  
+技术栈: mysql+koa2.js+vue.js+echarts.js，基于高德地图服务
 
+使用jwt+axios拦截器以及路由守卫实现token的验证和拦截
 
 页面的出行和历史模块已完成
 
