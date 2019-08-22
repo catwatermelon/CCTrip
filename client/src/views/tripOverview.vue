@@ -210,6 +210,7 @@ export default {
     overflow: hidden;
 }
 .md-landscape-body {
+    width: 100%;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -218,14 +219,20 @@ export default {
     /* height: 300px; */
 }
 .md-landscape-content {
-    width: 80%;
+    max-width: 80%;
     color: #666;
 }
-.overview input {
+.overview input[type=button] {
     border: none;
     outline: none;
     width: 64px;
     height: 22px;
     padding: 1px 6px;
+}
+.overview input[type=file]{
+    width: 64px;
+    text-indent: 999em;
+    padding: 0;
+    height: 22px;
 }
 </style>

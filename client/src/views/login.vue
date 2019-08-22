@@ -1,5 +1,5 @@
 <template>
-    <div class="login">
+    <div class="login" id='login'>
         <div class="day">
             <p class="title">DAY</p>
         </div>
@@ -15,9 +15,9 @@
             <p class="last">我陪你找~</p>
 
             <!-- <form action=""  method='post' class="formContent">     -->
-                <input type="text" v-show="loginMethod == 'accountNumber'" placeholder="登录账号" v-model="accountNumber">
-                <input type="text" v-show="loginMethod == 'username'" placeholder="登录用户名" v-model="accountNumber">              
-                <input type="password" placeholder="登录密码" v-model="password">
+                <input type="text" @focus="calcHeight" v-show="loginMethod == 'accountNumber'" placeholder="登录账号" v-model="accountNumber">
+                <input type="text" @focus="calcHeight"  v-show="loginMethod == 'username'" placeholder="登录用户名" v-model="accountNumber">              
+                <input type="password" @focus="calcHeight" placeholder="登录密码" v-model="password">
                <div class="otherService">
                     <button class="forgetBtn">找回密码</button>
                     <button class="changeBtn" @click="changeLoginMethod"><span>切换登录方式</span></button>
@@ -29,13 +29,15 @@
 </template>
 
 <script>
+
 export default {
     name: 'login',
     data(){
         return {
             accountNumber: '',
             password: '',
-            loginMethod: 'accountNumber'
+            loginMethod: 'accountNumber',
+            height: 0
         }
     },
     methods: {
@@ -69,7 +71,23 @@ export default {
         changeLoginMethod(){
             this.loginMethod = this.loginMethod == 'accountNumber' ? 'username' : 'accountNumber';
             this.accountNumber = '';
+        },
+        calcHeight(){
+            // var body = document.documentElement ||document.body;
+            // console.log(body)
+            // document.getElementById('login').style.height = this.height; 
+            // console.log(document.getElementById('login').style.height,body.style.height)
         }
+    },
+    mounted(){
+        // this.height = document.documentElement.clientHeight ||document.body.clientHeight;
+        // console.log(this.height)
+        // this.$nextTick(()=>{
+        //      document.getElementById('login').style.height = this.height;
+        // })
+        // this.$nextTick(()=>{
+        //     this.calcHeight();    
+        // })
     }
 }
 </script>
@@ -80,10 +98,11 @@ body,html {
     height: 100%;
 }
 .login {
+    /* min-height: 100%; */
     height: 100%;
+    /* min-height: 500px; */
     width: 100%;
     display: flex;
-    position: relative;
     box-sizing: border-box;
 }
 button, input {
@@ -126,7 +145,7 @@ button, input {
     justify-content: center;
     align-items: center;
     width: 82%;
-    height: 44%;
+    height: 300px;
     box-sizing: border-box;
     top: 38%;
     left: 50%;
@@ -159,7 +178,7 @@ button, input {
     border-bottom: 1px solid rgb(195, 234, 247);
 }
 .formWrapper>p {
-    line-height: 24px;
+    line-height: 1.7em;
     font-size: 14px;
     font-weight: bold; 
     letter-spacing: 4px;
@@ -189,7 +208,7 @@ button, input {
 }
 .heart {
     position: absolute;
-    top: -70px;
+    top: -90px;
 }
 .otherService {
     width: 80%;

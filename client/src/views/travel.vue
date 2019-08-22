@@ -22,7 +22,7 @@
                 </div>
             </div>
         </div>
-        <div id="output" style="left: 0px;" v-show="listTest && listTest.length"></div>
+        <div id="output" style="left:0!important" v-show="listTest && listTest.length"></div>
         <div class="planControl" v-show="showPlanControl">
             <p>方案详情</p>
             <md-icon
@@ -134,6 +134,7 @@ export default {
             listTest: [],
             map: null,
             geocoder: null,
+            circle: null,
             transport: null,
             autoCompleteStart: null,
             autoCompleteEnd:null,
@@ -150,17 +151,22 @@ export default {
                     timeout: 3000,          //超过10秒后停止定位，默认：5s
                 });
                 geolocation.on('complete',(GeolocationResult)=>{
-                    var circle = new AMap.CircleMarker({
-                        center: GeolocationResult.position,
-                        radius: 30, //半径
-                        strokeColor: "lightblue",
-                        strokeWeight: 6,
-                        strokeOpacity: 0.2,
-                        fillOpacity: 0.4,
-                        fillColor: '#1791fc',
-                        zIndex: 50,
-                    })
-                    circle.setMap(that.map)
+                    if(!that.circle){
+                        that.circle = new AMap.CircleMarker({
+                            center: GeolocationResult.position,
+                            radius: 30, //半径
+                            strokeColor: "lightblue",
+                            strokeWeight: 6,
+                            strokeOpacity: 0.2,
+                            fillOpacity: 0.4,
+                            fillColor: '#1791fc',
+                            zIndex: 50,
+                        })
+                        that.circle.setMap(that.map)
+                    } else {
+                        // that.circle.setMap();
+                        that.circle.setCenter(GeolocationResult.position);
+                    }
                 })
                 Toast.loading('定位中...')
                 geolocation.getCurrentPosition(function(status,result){
@@ -358,6 +364,11 @@ export default {
             this.$set(this.isPopupShow, type, false)
         },
     },
+    watch: {
+        $route(to,from){
+            Toast && Toast.hide();
+        }
+    },
     created(){
         this.init();
     },
@@ -368,6 +379,9 @@ export default {
 </script>
 
 <style>
+.travel {
+    overflow: hidden;
+}
 .travel,#mapContainer {
     height: 100%;
     width: 100%;
@@ -376,6 +390,8 @@ export default {
 .travel .dialog {
     position: absolute;
     top: 0;
+    left: 0;
+    right: 0;
     background-color: white;
     width: 100%;
     display: flex;
@@ -449,10 +465,9 @@ export default {
 #output {
     position: absolute;
     top: 123px;
-    left: 0;
+    left: 0px!important;
     right: 0;
-    box-sizing: border-box;
-    padding: 0px 10px;
+    padding: 4px 10px;
     background-color: rgba(255,255,255, 0.85);
 } 
 #output>div{
@@ -473,12 +488,18 @@ export default {
     position: absolute;
     display: flex;
     top: 120px;
-    left: 0;
-    right: 0;
+    width: 100%;
+    /* left: 0;
+    right: 0; */
+
     align-items: center;
     height: 35px;
     padding: 0px 10px;
+    box-sizing: border-box;
     background-color: rgb(231, 245, 250);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .planOutsideContainer {
     position: absolute;
@@ -490,10 +511,11 @@ export default {
 }
 .arrow-icon {
     position: absolute;
-    padding: 3px 40px;
-    left: 50%;
+    padding: 3px 10px; 
+    /* left: 50%; */
     color: #2F85F4;
-    transform: translate(-50%);
+    box-sizing: border-box;
+    /* transform: translate(-50%); */
 }
 .save {
     margin-left: auto;

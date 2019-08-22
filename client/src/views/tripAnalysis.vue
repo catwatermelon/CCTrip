@@ -197,13 +197,18 @@ export default {
     padding: 20px 10px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
     box-sizing: border-box;
+    position: relative;
+}
+.tripanalysis .header {
+    background-color: white;
 }
 .tripanalysis #pieChart, .tripanalysis #lineChart {
-    /* height: 300px; */
+    height: 300px;
+    width: 90%;
     box-sizing: border-box;
     padding: 10px;
-    flex: 1;
 }
 </style>

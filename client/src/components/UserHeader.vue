@@ -24,6 +24,7 @@ export default {
     height: 50px;
     flex-direction: column;
     box-sizing: border-box;
+    background-color: white!important;
 }
 p {
     text-align: center;
