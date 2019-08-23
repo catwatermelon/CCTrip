@@ -11,6 +11,8 @@
 
 个人页面仅仅是完成了账号、用户名以及头像上传功能，表格采用的是静态数据
 
+账号1332837 密码350301
+
 
 ![image](https://github.com/catwatermelon/imageRepository/blob/master/images/CCTrip1.jpg)
 
